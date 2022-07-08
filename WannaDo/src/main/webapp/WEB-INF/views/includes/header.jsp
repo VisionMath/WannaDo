@@ -25,7 +25,8 @@
 			<li class="nav-item"><a class="nav-link" href="/coffee/all">All PRODUCTS</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/coffee/single">Single Origin</a></li>
-			<li class="nav-item"><a class="nav-link" href="/coffee/blend"> Blend</a></li>
+			<li class="nav-item"><a class="nav-link" href="/coffee/blend">Blend</a></li>
+			<li class="nav-item"><a class="nav-link" href="/coffee/decaffeine">DeCaffeine</a></li>
 			<li class="nav-item"><a class="nav-link" href="/roastery"> Roastery</a></li>
 		</ul>
 		<ul class="navbar-nav">

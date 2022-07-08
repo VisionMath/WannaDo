@@ -15,22 +15,24 @@
 		</div>
 	</div>
 	<div>
-		<p>${coffee.shipping }</p>
-		<p>${coffee.acidity }</p>
-		<p>${coffee.blend }</p>
-		<p>${coffee.roasting }</p>
-	</div>
+		<ul class="list-group">
+			<li class="list-group-item">${coffee.shipping }</li>
+			<li class="list-group-item">${coffee.acidity }</li>
+			<li class="list-group-item">${coffee.blend }</li>
+			<li class="list-group-item">${coffee.roasting }</li>
 
+		</ul>
+	</div>
+	<br><br>
 	<div>
-		<div>
-			<img src="${coffee.subimage1 }" width=200px> <img src="${coffee.subimage2 }" width=200px>
-			<img src="${coffee.subimage3 }" width=200px>
-		</div>
+		<img src="${coffee.subimage1 }" width=200px> <img
+			src="${coffee.subimage2 }" width=200px> <img src="${coffee.subimage3 }" width=200px>
 		<h2>${coffee.roastery }</h2>
-		<h6>${coffee.prize }</h6>
+		<p>${coffee.prize }</p>
 		<p>${coffee.content }</p>
 		<p>${coffee.location }</p>
 	</div>
+
 	<div>
 		<h2>잘 맞는 추출방법</h2>
 		<p>${coffee.extraction }</p>

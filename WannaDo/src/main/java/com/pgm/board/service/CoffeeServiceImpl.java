@@ -15,19 +15,19 @@ import com.pgm.board.model.Coffee;
 import com.pgm.board.repository.CoffeeRepository;
 
 @Service
-public class CoffeeServiceImpl implements CoffeeService{
+public class CoffeeServiceImpl implements CoffeeService {
 	@Autowired
 	private CoffeeRepository coffeeRepository;
-	
+
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Override
 	public List<Coffee> coffeeList() {
 		// TODO Auto-generated method stub
 		return coffeeRepository.findAll();
 	}
-	
+
 	@Override
 	public Page<Coffee> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -38,16 +38,21 @@ public class CoffeeServiceImpl implements CoffeeService{
 	@Override
 	public Coffee findById(Long id) {
 		// TODO Auto-generated method stub
-		Coffee coffee=coffeeRepository.findById(id).get();
+		Coffee coffee = coffeeRepository.findById(id).get();
 //		coffee.setHitcount(coffee.getHitcount()+1);
 		return coffee;
 	}
 
-	
 	@Override
 	public Long count() {
 		// TODO Auto-generated method stub
 		return coffeeRepository.count();
 	}
-	
+
+	@Override
+	public Page<Coffee> findByType(String string, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return coffeeRepository.findByType(string, pageable);
+	}
+
 }
