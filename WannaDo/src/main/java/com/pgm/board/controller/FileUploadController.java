@@ -36,49 +36,49 @@ import lombok.extern.java.Log;
 @Controller
 @RequestMapping("/files/*")
 public class FileUploadController {
-	
-	@GetMapping("uploadForm")
-		public void fileUploadForm() {
-			
-		}
-	
-	
-	@PostMapping("uploadFormAction")
-	public String uploadFormAction(MultipartFile[] uploads, HttpSession session, Model model) {
-		String uploadFolder = session.getServletContext().getRealPath("/resources/upload");
-		String names ="";
-		String today=new SimpleDateFormat("yyMMdd").format(new Date());
-		//파일명 : /resource/upload + / + 오늘날짜
-		String saveFolder = uploadFolder + File.separator + today;
-		List<String> mfile = new ArrayList<String>();
-		log.info(saveFolder);
-		
-		for(MultipartFile mutipartFile:uploads ) {
-			String orifile = mutipartFile.getOriginalFilename();
-			//파일이름 중복 피하기. : 랜덤 16진수 숫자 사용하기. 
-			UUID uuid = UUID.randomUUID();
-			String uploadfileName = uuid.toString() + "_" + orifile;
-			log.info("================================");
-			log.info("origin name : " + mutipartFile.getOriginalFilename());
-			log.info("uploadfile name : " +uploadfileName );
-			
-			//파일 객체 생성 (경로, 파일)
-			File saveFile = new File(saveFolder,uploadfileName);
-			
-			try {
-				//업로드한 파일을 saveFolder 경로에 uploadfileName 이름으로 전송.
-				mutipartFile.transferTo(saveFile);
-				mfile.add(orifile);
-			} catch(IllegalStateException | IOException e) {
-				e.printStackTrace();
-				
-			}
-			
-		}
-		model.addAttribute("uploadFiles",mfile);
-		return "files/fileResult";
-		
-	}
+
+    @GetMapping("uploadForm")
+    public void fileUploadForm() {
+
+    }
+
+
+    @PostMapping("uploadFormAction")
+    public String uploadFormAction(MultipartFile[] uploads, HttpSession session, Model model) {
+        String uploadFolder = session.getServletContext().getRealPath("/resources/upload");
+        String names = "";
+        String today = new SimpleDateFormat("yyMMdd").format(new Date());
+        //파일명 : /resource/upload + / + 오늘날짜
+        String saveFolder = uploadFolder + File.separator + today;
+        List<String> mfile = new ArrayList<String>();
+        log.info(saveFolder);
+
+        for (MultipartFile mutipartFile : uploads) {
+            String orifile = mutipartFile.getOriginalFilename();
+            //파일이름 중복 피하기. : 랜덤 16진수 숫자 사용하기.
+            UUID uuid = UUID.randomUUID();
+            String uploadfileName = uuid.toString() + "_" + orifile;
+            log.info("================================");
+            log.info("origin name : " + mutipartFile.getOriginalFilename());
+            log.info("uploadfile name : " + uploadfileName);
+
+            //파일 객체 생성 (경로, 파일)
+            File saveFile = new File(saveFolder, uploadfileName);
+
+            try {
+                //업로드한 파일을 saveFolder 경로에 uploadfileName 이름으로 전송.
+                mutipartFile.transferTo(saveFile);
+                mfile.add(orifile);
+            } catch (IllegalStateException | IOException e) {
+                e.printStackTrace();
+
+            }
+
+        }
+        model.addAttribute("uploadFiles", mfile);
+        return "files/fileResult";
+
+    }
 
 }
 

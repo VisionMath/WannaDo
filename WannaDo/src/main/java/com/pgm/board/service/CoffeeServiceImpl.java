@@ -16,43 +16,43 @@ import com.pgm.board.repository.CoffeeRepository;
 
 @Service
 public class CoffeeServiceImpl implements CoffeeService {
-	@Autowired
-	private CoffeeRepository coffeeRepository;
+    @Autowired
+    private CoffeeRepository coffeeRepository;
 
-	@PersistenceContext
-	EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
-	@Override
-	public List<Coffee> coffeeList() {
-		// TODO Auto-generated method stub
-		return coffeeRepository.findAll();
-	}
+    @Override
+    public List<Coffee> coffeeList() {
+        // TODO Auto-generated method stub
+        return coffeeRepository.findAll();
+    }
 
-	@Override
-	public Page<Coffee> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return coffeeRepository.findAll(pageable);
-	}
+    @Override
+    public Page<Coffee> findAll(Pageable pageable) {
+        // TODO Auto-generated method stub
+        return coffeeRepository.findAll(pageable);
+    }
 
-	@Transactional
-	@Override
-	public Coffee findById(Long id) {
-		// TODO Auto-generated method stub
-		Coffee coffee = coffeeRepository.findById(id).get();
+    @Transactional
+    @Override
+    public Coffee findById(Long id) {
+        // TODO Auto-generated method stub
+        Coffee coffee = coffeeRepository.findById(id).get();
 //		coffee.setHitcount(coffee.getHitcount()+1);
-		return coffee;
-	}
+        return coffee;
+    }
 
-	@Override
-	public Long count() {
-		// TODO Auto-generated method stub
-		return coffeeRepository.count();
-	}
+    @Override
+    public Long count() {
+        // TODO Auto-generated method stub
+        return coffeeRepository.count();
+    }
 
-	@Override
-	public Page<Coffee> findByType(String string, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return coffeeRepository.findByType(string, pageable);
-	}
+    @Override
+    public Page<Coffee> findByType(String string, Pageable pageable) {
+        // TODO Auto-generated method stub
+        return coffeeRepository.findByType(string, pageable);
+    }
 
 }

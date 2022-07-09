@@ -9,14 +9,14 @@ import com.pgm.board.model.Coffee;
 
 public interface CoffeeService {
 
-	public List<Coffee> coffeeList();
+    public List<Coffee> coffeeList();
 
-	public Coffee findById(Long id);
+    public Coffee findById(Long id);
 
-	public Long count();
+    public Long count();
 
-	public Page<Coffee> findAll(Pageable pageable);
+    public Page<Coffee> findAll(Pageable pageable);
 
-	public Page<Coffee> findByType(String string, Pageable pageable);
+    public Page<Coffee> findByType(String string, Pageable pageable);
 
 }

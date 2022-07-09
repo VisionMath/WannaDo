@@ -8,13 +8,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class WannaDoApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(WannaDoApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(WannaDoApplication.class);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(WannaDoApplication.class, args);
-	}
+    public static void main(String[] args) {
+
+        System.setProperty("server.servlet.context-path", "/WannaDo");
+        SpringApplication.run(WannaDoApplication.class, args);
+    }
 
 }

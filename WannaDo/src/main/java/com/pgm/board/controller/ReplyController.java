@@ -25,35 +25,35 @@ import lombok.extern.java.Log;
 @RestController
 @RequestMapping("/replies")
 public class ReplyController {
-	@Autowired
-	private BoardService boardService;
-	@Autowired
-	private UserService userService;
-	
-	@PostMapping("new/{bno}")
-	public ResponseEntity<String> replyInsert(@PathVariable Long bno,
-			@RequestBody Reply reply){
-		Board b=new Board();
-		b.setId(bno);
-		reply.setBoard(b);
-		User user=userService.findByUsername(reply.getWriter());
-		reply.setUser(user);
-		boardService.insetReply(reply);
-		return new ResponseEntity<String>("success",HttpStatus.OK);
-	}
-	
-	@GetMapping("getList/{bno}")
-	public List<Reply> list(@PathVariable Long bno){
-		List<Reply> rList=boardService.replyList(bno);
-		//log.info("rList[0]"+rList.get(0));
-		return rList;
-	}
-	@DeleteMapping("{id}")
-	public Long delete(@PathVariable Long id) {
-		boardService.replyDelete(id);
-		return id;
-	}
-	
-	
+    @Autowired
+    private BoardService boardService;
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("new/{bno}")
+    public ResponseEntity<String> replyInsert(@PathVariable Long bno,
+                                              @RequestBody Reply reply) {
+        Board b = new Board();
+        b.setId(bno);
+        reply.setBoard(b);
+        User user = userService.findByUsername(reply.getWriter());
+        reply.setUser(user);
+        boardService.insetReply(reply);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("getList/{bno}")
+    public List<Reply> list(@PathVariable Long bno) {
+        List<Reply> rList = boardService.replyList(bno);
+        //log.info("rList[0]"+rList.get(0));
+        return rList;
+    }
+
+    @DeleteMapping("{id}")
+    public Long delete(@PathVariable Long id) {
+        boardService.replyDelete(id);
+        return id;
+    }
+
 
 }

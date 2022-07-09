@@ -27,25 +27,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reply {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String writer;
-	
-	private String content;
-	
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern ="yyyy-MM-dd")
-	private Date regdate;
-	
-	@ManyToOne
-	@JoinColumn(name="board_id")
-	private Board board;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String writer;
+
+    private String content;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date regdate;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }

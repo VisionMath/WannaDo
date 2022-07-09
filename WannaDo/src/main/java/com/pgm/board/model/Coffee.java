@@ -11,47 +11,47 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="wannado_allcoffee")
+@Table(name = "wannado_allcoffee")
 @Data
 public class Coffee {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	private String taste;
-	private String blend;
-	private String price;
-	private String roastery;
-	private String added;
-	private String image;
-	private String roasteryimage;
-	private String alterimage;
+    private String taste;
+    private String blend;
+    private String price;
+    private String roastery;
+    private String added;
+    private String image;
+    private String roasteryimage;
+    private String alterimage;
 
-	@Lob
-	private String tastedescription;
+    @Lob
+    private String tastedescription;
 
-	private String alterroastery;
-	private String shipping;
-	@Column(name = "class")
-	private String type;
-	private String acidity;
-	private String blendproperty;
-	private String roasting;
-	private String subimage1;
-	private String subimage2;
-	private String subimage3;
-	private String prize;
+    private String alterroastery;
+    private String shipping;
+    @Column(name = "class")
+    private String type;
+    private String acidity;
+    private String blendproperty;
+    private String roasting;
+    private String subimage1;
+    private String subimage2;
+    private String subimage3;
+    private String prize;
 
-	@Lob
-	private String content;
+    @Lob
+    private String content;
 
-	private String location;
-	private String extraction;
-	
-	private String drinkbest;
-	private String origin2;
-	
+    private String location;
+    private String extraction;
+
+    private String drinkbest;
+    private String origin2;
+
 //	private Long hitcount;
 //	
 //	@PrePersist
@@ -68,5 +68,5 @@ public class Coffee {
 //	@JoinColumn(name="user_id")
 //	private User user;
 //	
-	
+
 }

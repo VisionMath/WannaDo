@@ -8,6 +8,6 @@ import com.pgm.board.model.Coffee;
 
 public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
 
-	Page<Coffee> findByType(String string, Pageable pageable);
+    Page<Coffee> findByType(String string, Pageable pageable);
 
 }
