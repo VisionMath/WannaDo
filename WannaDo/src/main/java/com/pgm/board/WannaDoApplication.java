@@ -14,8 +14,7 @@ public class WannaDoApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-
-        System.setProperty("server.servlet.context-path", "/WannaDo");
+//        System.setProperty("server.servlet.context-path", "WannaDo");
         SpringApplication.run(WannaDoApplication.class, args);
     }
 

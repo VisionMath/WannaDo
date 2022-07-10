@@ -7,19 +7,19 @@
     <div id="carouselExampleControls" class="carousel slide container mt-4" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="/images/coffee.png" width="400" height="500" class="d-block w-100">
+          <img src="images/coffee.png" width="400" height="500" class="d-block w-100">
         </div>
         <div class="carousel-item">
-          <img src="/images/coffee2.png" width="400" height="500" class="d-block w-100">
+          <img src="images/coffee2.png" width="400" height="500" class="d-block w-100">
         </div>
         <div class="carousel-item">
-          <img src="/images/coffee3.png" width="400" height="500" class="d-block w-100">
+          <img src="images/coffee3.png" width="400" height="500" class="d-block w-100">
         </div>
         <div class="carousel-item">
-          <img src="/images/coffee4.png"width="400" height="500" class="d-block w-100">
+          <img src="images/coffee4.png"width="400" height="500" class="d-block w-100">
         </div>
         <div class="carousel-item">
-          <img src="/images/coffee5.png"width="400" height="500" class="d-block w-100">
+          <img src="images/coffee5.png"width="400" height="500" class="d-block w-100">
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -36,19 +36,19 @@
  <div class="container text-center mt-5">
       <div class="row">
         <div class="col-lg-4">
-          <img src="/images/coffee.png" width="140" height="140" class="rounded-circle">
+          <img src="images/coffee.png" width="140" height="140" class="rounded-circle">
           <h2>Heading</h2>
           <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
           <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img src="/images/coffee2.png" width="140" height="140" class="rounded-circle">
+          <img src="images/coffee2.png" width="140" height="140" class="rounded-circle">
           <h2>Heading</h2>
           <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
           <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img src="/images/coffee3.png" width="140" height="140" class="rounded-circle">
+          <img src="images/coffee3.png" width="140" height="140" class="rounded-circle">
           <h2>Heading</h2>
           <p>And lastly this, the third column of representative placeholder content.</p>
           <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
@@ -59,7 +59,7 @@
       <!-- Card Deck -->
       <div class="card-deck">
         <div class="card">
-          <img src="/images/coffee.png" class="card-img-top">
+          <img src="images/coffee.png" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="/images/coffee2.png" class="card-img-top">
+          <img src="images/coffee2.png" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="/images/coffee3.png" class="card-img-top">
+          <img src="images/coffee3.png" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>

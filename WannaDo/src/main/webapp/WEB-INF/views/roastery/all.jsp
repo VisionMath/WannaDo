@@ -5,7 +5,7 @@
 
 <%@ include file="../includes/header.jsp"%>
 <div class="container">
-	<h6>Coffee Total(${count})</h6>
+	<h6>Roastery Total(${count})</h6>
 	<%-- <div class="form-group text-right">
 		<c:if test="${not empty sessionScope.sUser }">
 			<button type="button" class="btn btn-secondary btn-sm" id="btnWrite">글쓰기</button>
@@ -13,15 +13,12 @@
 	</div> --%>
 
 	<ul class="cards">
-		<c:forEach items="${lists.content}" var="coffee">
+		<c:forEach items="${lists.content}" var="roastery">
 			<li class="cards__item">
-				<div class="card" onclick="location.href='${pageContext.request.contextPath}/coffee/${coffee.id}'">
-					<div class="card__image card__image--wannado"><img src="${coffee.image}" width=300px></div>
+				<div class="card" onclick="location.href='${pageContext.request.contextPath}/roastery/${roastery.id}'">
+					<div class="card__image card__image--fence"><img src="${roastery.image}" width=300px></div>
 					<div class="card__content">
-						<div class="card__title">${coffee.taste}</div>
-						<p class="card__text">${fn:substring(coffee.blend, 0, 19)}</p>
-						<p class="card__text">${coffee.price}</p>
-						<p class="card__text">${coffee.roastery}</p>
+						<div class="card__title">${roastery.name}</div>
 					</div>
 				</div>
 			</li>
@@ -49,7 +46,7 @@
 			</c:if>
 		</ul>
 
-		<form class="form-inline" action="${pageContext.request.contextPath}/coffee/search" id="searchFrm">
+		<form class="form-inline" action="${pageContext.request.contextPath}/roastery/search" id="searchFrm">
 			<select name="field" class="form-control mb-2 mr-sm-2">
 
 				<!-- <option value="" disabled selected>--</option> -->
@@ -71,7 +68,7 @@
 
 <script type="text/javascript">
 	$("#btnWrite").click(function() {
-		location.href = "${pageContext.request.contextPath}/coffee/register"
+		location.href = "${pageContext.request.contextPath}/roastery/register"
 	});
 </script>
 
