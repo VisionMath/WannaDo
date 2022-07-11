@@ -162,10 +162,17 @@ public class CoffeeController {
 	 * return "/coffee/detail"; }
 	 */
 
-	@GetMapping({"{id}"})
+	@GetMapping({ "{id}" })
 	public String view(@PathVariable("id") Long id, Model model) {
 		System.out.println(id);
 		model.addAttribute("coffee", coffeeService.findById(id));
 		return "coffee/detail";
 	}
+
+	/*
+	 * @GetMapping("order") public String orderForm(@RequestParam("order_id") Long
+	 * coffee_id, Model model) { Coffee coffee = coffeeService.findById(coffee_id);
+	 * 
+	 * model.addAttribute("coffee", coffee); return "order/orderForm"; }
+	 */
 }

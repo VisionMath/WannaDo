@@ -17,7 +17,7 @@ public class Roastery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rid")
-	private Long id;
+	private Long rid;
 
 	private String name;
 	private String image;

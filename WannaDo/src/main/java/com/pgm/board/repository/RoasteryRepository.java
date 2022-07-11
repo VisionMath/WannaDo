@@ -6,4 +6,6 @@ import com.pgm.board.model.Roastery;
 
 public interface RoasteryRepository extends JpaRepository<Roastery, Long> {
 
+	public Roastery findByRid(Long rid);
+
 }

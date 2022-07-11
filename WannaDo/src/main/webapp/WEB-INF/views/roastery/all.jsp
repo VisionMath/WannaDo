@@ -15,7 +15,7 @@
 	<ul class="cards">
 		<c:forEach items="${lists.content}" var="roastery">
 			<li class="cards__item">
-				<div class="card" onclick="location.href='${pageContext.request.contextPath}/roastery/${roastery.id}'">
+				<div class="card" onclick="location.href='${pageContext.request.contextPath}/roastery/${roastery.rid}'">
 					<div class="card__image card__image--fence"><img src="${roastery.image}" width=300px></div>
 					<div class="card__content">
 						<div class="card__title">${roastery.name}</div>

@@ -14,7 +14,8 @@
 
 <title>WannaDo</title>
 </head>
-<body>
+<body onload="init();" style="overflow: auto;">
+	<header>
 	<nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-center ">
 		<!-- Brand/logo -->
 				
@@ -41,6 +42,7 @@
 		</c:choose>
 		</ul>
 	</nav>
+	</header>
 	
 	
 	

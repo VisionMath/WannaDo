@@ -26,7 +26,7 @@ public class RoasteryController {
 
 	@GetMapping("all")
 	public String listPage(Model model,
-			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size = 12, sort = "rid", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Roastery> lists = roasteryService.findAll(pageable);
 
@@ -59,14 +59,13 @@ public class RoasteryController {
 
 	/*
 	 * @GetMapping("detail") public String detail(@RequestParam("bno") Long id,
-	 * Model model) { model.addAttribute("roastery",
-	 * roasteryService.findById(id)); return "/roastery/detail"; }
+	 * Model model) { model.addAttribute("roastery", roasteryService.findById(id));
+	 * return "/roastery/detail"; }
 	 */
 
-	@GetMapping({"{id}"})
-	public String view(@PathVariable("id") Long id, Model model) {
-		System.out.println(id);
-		model.addAttribute("roastery", roasteryService.findById(id));
+	@GetMapping({ "{rid}" })
+	public String view(@PathVariable("rid") Long rid, Model model) {
+		model.addAttribute("roastery", roasteryService.findByRid(rid));
 		return "roastery/detail";
 	}
 }

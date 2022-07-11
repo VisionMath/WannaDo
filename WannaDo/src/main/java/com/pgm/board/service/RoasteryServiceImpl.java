@@ -36,9 +36,9 @@ public class RoasteryServiceImpl implements RoasteryService {
 
 	@Transactional
 	@Override
-	public Roastery findById(Long id) {
+	public Roastery findByRid(Long rid) {
 		// TODO Auto-generated method stub
-		Roastery roastery = roasteryRepository.findById(id).get();
+		Roastery roastery = roasteryRepository.findByRid(rid);
 		// roastery.setHitcount(roastery.getHitcount()+1);
 		return roastery;
 	}
