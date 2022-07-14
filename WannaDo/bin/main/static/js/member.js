@@ -7,9 +7,9 @@ $(document).ready(function(){
 	//var exp = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
 	
 	$("#btnJoin").click(function(){
-		if($("#username").val()==""){
+		if($("#userid").val()==""){
 			alert("아이디를 입력하세요");
-			$("#username").focus();
+			$("#userid").focus();
 			return false;
 		}
 		if($("#password").val() == "") {
@@ -27,23 +27,28 @@ $(document).ready(function(){
 			$("#pass_check").focus();
             return false;
 		}
-		
+		if($("#name").val() == "") {
+			alert("이름을 입력하세요");
+			$("#name").focus();
+            return false;
+		}
+		if($("#phone").val() == "") {
+			alert("전화번호를 입력하세요");
+			$("#phone").focus();
+            return false;
+		}
 		if($("#email").val() == "") {
 			alert("이메일을 입력하세요");
 			$("#email").focus();
             return false;
 		}
-		if($("#role").val() == "") {
-			alert("role를 입력하세요");
-			$("#role").focus();
-            return false;
-		}
-		
 		var data={
-			"username":$("#username").val(),
+			"userid":$("#userid").val(),
+			"name":$("#name").val(),
+			"phone":$("#phone").val(),
 			"email":$("#email").val(),
 			"password":$("#password").val(),
-			"role":$("#role").val()
+			"role":"USER"
 		}
 		
 		$.ajax({
@@ -73,7 +78,7 @@ $(document).ready(function(){
 			type : "post",
 			url : "/checkId",
 			data : {
-				"username" : $("#username").val()
+				"userid" : $("#userid").val()
 			}
 		}).done(function(resp) {
 			if (resp == "fail") {
@@ -94,7 +99,7 @@ $(document).ready(function(){
 			type : "post",
 			url : "/login",
 			data : {
-				"username" : $("#username").val(),
+				"userid" : $("#userid").val(),
 				"password" : $("#password").val()
 			}
 		}).done(function(resp) {
@@ -102,8 +107,8 @@ $(document).ready(function(){
 				alert("회원이 아닙니다. 회원가입하세요");
 				location.href = "/join"
 			} else if (resp == "success") {
-				alert("로그인 성공");
-				location.href = "/board/list"
+				/*alert("로그인 성공");*/
+				location.href = "/index"
 			} else {
 				alert("비밀번호를 확인하세요");
 			}

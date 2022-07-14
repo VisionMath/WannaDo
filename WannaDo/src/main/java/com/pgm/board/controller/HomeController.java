@@ -17,74 +17,75 @@ import com.pgm.board.service.UserService;
 @RequestMapping("/")
 public class HomeController {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping(value = {"", "index"})
-    public String index() {
-        return "index";
-    }
+	@GetMapping(value = {"", "index"})
+	public String index() {
+		return "index";
+	}
 
-    @GetMapping("join")
-    public String joinForm() {
-        return "member/join";
-    }
+	@GetMapping("join")
+	public String joinForm() {
+		return "member/join";
+	}
 
-    //아이디 중복 검사 작업중 checkId
-    @PostMapping("checkId")
-    @ResponseBody
-    public String checkId(String username) {
-        //입력란에 가져오는 username 예시 : lsy
-        User user = userService.findByUsername(username);
-        boolean usernameYes = userService.existsByUsername(username);
-        String result = "success";
+	// 아이디 중복 검사 작업중 checkId
+	@PostMapping("checkId")
+	@ResponseBody
+	public String checkId(String userid) {
+		// 입력란에 가져오는 username 예시 : lsy
+		User user = userService.findByUserid(userid);
+		// boolean usernameYes = userService.existsByUserid(userid);
+		String result = "success";
 
-        if (user != null) { //중복된 아이디임.
-            return "fail";
-        } else if (user == null && "".equals(username)) {
-            return "no";
-        }
-        return result;
-    }
+		if (user != null) { // 중복된 아이디임.
+			return "fail";
+		} else if (user == null && "".equals(userid)) {
+			return "no";
+		}
+		return result;
+	}
 
-    @PostMapping("join")
-    @ResponseBody
-    public String register(@RequestBody User user) {
+	@PostMapping("join")
+	@ResponseBody
+	public String register(@RequestBody User user) {
 
-        if (userService.findByUsername(user.getUsername()) != null) {
-            return "fail";
-        }
-        userService.register(user);
-        return "success";
-    }
+		if (userService.findByUserid(user.getUserid()) != null) {
+			return "fail";
+		}
+		userService.register(user);
+		return "success";
+	}
 
-    @GetMapping("login")
-    public String loginForm() {
-        return "member/login";
-    }
+	@GetMapping("login")
+	public String loginForm() {
+		return "member/login";
+	}
 
-    //로그아웃
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("sUser");
-        return "redirect:/board/list";
+	// 로그아웃
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("sUser");
+		return "redirect:/";
 
-    }
+	}
 
-    @PostMapping("login")
-    @ResponseBody
-    public String loginPro(String username, String password, HttpSession session) {
-        User user = userService.findByUsername(username);
-        String result = "no";
-        if (user != null) {
-            if (user.getPassword().equals(password)) {
-                session.setAttribute("sUser", user);
-                result = "success";
-            } else {
-                result = "fail";
-            }
-        }
-        return result;
-    }
+	@PostMapping("login")
+	@ResponseBody
+	public String loginPro(String userid, String password,
+			HttpSession session) {
+		User user = userService.findByUserid(userid);
+		String result = "no";
+		if (user != null) {
+			if (user.getPassword().equals(password)) {
+				session.setAttribute("sUser", user);
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		}
+		return result;
+	}
 
 }

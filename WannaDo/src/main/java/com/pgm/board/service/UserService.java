@@ -4,10 +4,10 @@ import com.pgm.board.model.User;
 
 public interface UserService {
 
-    public void register(User user);
+	public void register(User user);
 
-    public User findByUsername(String username);
+	public User findByUserid(String userid);
 
-    public boolean existsByUsername(String username);
+	public boolean existsByUserid(String userid);
 
 }

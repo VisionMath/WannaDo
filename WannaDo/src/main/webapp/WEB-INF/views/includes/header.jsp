@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/6cf589222a.js" crossorigin="anonymous"></script>
 
 <title>WannaDo</title>
 </head>
@@ -37,7 +38,8 @@
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/join">JOIN</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/logout">LOGOUT(${sUser.username})</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/logout">LOGOUT</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/mypage">MyPage</a></li>
 			</c:otherwise>
 		</c:choose>
 		</ul>

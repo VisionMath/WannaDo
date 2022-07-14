@@ -6,8 +6,8 @@ import com.pgm.board.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    public User findByUsername(String username);
+	public User findByUserid(String userid);
 
-    public boolean existsByUsername(String username);
+	public boolean existsByUserid(String userid);
 
 }

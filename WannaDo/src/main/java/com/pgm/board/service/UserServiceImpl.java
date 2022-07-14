@@ -12,26 +12,26 @@ import lombok.extern.java.Log;
 @Log
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    //작업중 중복 아이디 검사.
-    @Override
-    public boolean existsByUsername(String username) {
-        // TODO Auto-generated method stub
-        return userRepository.existsByUsername(username);
-    }
+	// 작업중 중복 아이디 검사.
+	@Override
+	public boolean existsByUserid(String userid) {
+		// TODO Auto-generated method stub
+		return userRepository.existsByUserid(userid);
+	}
 
-    @Override
-    public void register(User user) {
-        // TODO Auto-generated method stub
-        userRepository.save(user);
-    }
+	@Override
+	public void register(User user) {
+		// TODO Auto-generated method stub
+		userRepository.save(user);
+	}
 
-    @Override
-    public User findByUsername(String username) {
-        // TODO Auto-generated method stub
-        return userRepository.findByUsername(username);
-    }
+	@Override
+	public User findByUserid(String userid) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserid(userid);
+	}
 
 }

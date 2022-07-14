@@ -25,284 +25,274 @@ import lombok.extern.java.Log;
 @RequestMapping("/board/*")
 public class BoardController {
 
-    @Autowired
-    private BoardService boardService;
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("register")
-    public void insert() {
-
-    }
-
-    @PostMapping("insert")
-    public String insert(Board board) {
-        log.info("board.............." + board.getWriter());
-
-        User user = userService.findByUsername(board.getWriter());
-        log.info("User.............." + user);
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private UserService userService;
+
+	@GetMapping("register")
+	public void insert() {
+
+	}
+
+	@PostMapping("insert")
+	public String insert(Board board) {
+		log.info("board.............." + board.getWriter());
+
+		User user = userService.findByUserid(board.getWriter());
+		log.info("User.............." + user);
+
+		boardService.insert(board, user);
+		return "redirect:/board/list";
+	}
 
-        boardService.insert(board, user);
-        return "redirect:/board/list";
-    }
+	// @GetMapping("list")
+	public String list(Model model) {
+		model.addAttribute("list", boardService.boardList());
+		model.addAttribute("count", boardService.count());
+		return "/board/list2";
+	}
 
-    //@GetMapping("list")
-    public String list(Model model) {
-        model.addAttribute("list", boardService.boardList());
-        model.addAttribute("count", boardService.count());
-        return "/board/list2";
-    }
+	// 전체보기(페이징)
+	@GetMapping("list")
+	public String listPage(Model model,
+			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-    //전체보기(페이징)
-    @GetMapping("list")
-    public String listPage(Model model,
-                           @PageableDefault(size = 12, sort = "id",
-                                   direction = Sort.Direction.DESC) Pageable pageable) {
+		Page<Board> lists = boardService.findAll(pageable);
 
-        Page<Board> lists = boardService.findAll(pageable);
+		long pageSize = pageable.getPageSize();
+		long rowNm = boardService.count();
+		long totPage = (long) Math.ceil((double) rowNm / pageSize);
+		long currPage = pageable.getPageNumber();
+		System.out.println("CurrPag==============" + currPage);
 
-        long pageSize = pageable.getPageSize();
-        long rowNm = boardService.count();
-        long totPage = (long) Math.ceil((double) rowNm / pageSize);
-        long currPage = pageable.getPageNumber();
-        System.out.println("CurrPag==============" + currPage);
+		long startPage = ((currPage) / pageSize) * pageSize;
+		long endPage = startPage + pageSize;
+		if (endPage > totPage)
+			endPage = totPage;
 
-        long startPage = ((currPage) / pageSize) * pageSize;
-        long endPage = startPage + pageSize;
-        if (endPage > totPage)
-            endPage = totPage;
+		boolean prev = startPage > 0 ? true : false;
+		boolean next = endPage < totPage ? true : false;
 
-        boolean prev = startPage > 0 ? true : false;
-        boolean next = endPage < totPage ? true : false;
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage - 1);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		model.addAttribute("count", rowNm);
+		model.addAttribute("lists", lists);
+		model.addAttribute("totPage", totPage);
+		model.addAttribute("cp", currPage);
 
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage - 1);
-        model.addAttribute("prev", prev);
-        model.addAttribute("next", next);
-        model.addAttribute("count", rowNm);
-        model.addAttribute("lists", lists);
-        model.addAttribute("totPage", totPage);
-        model.addAttribute("cp", currPage);
+		return "board/list";
+	}
 
-        return "board/list";
-    }
+	// 검색 작업 중 : 제목을 기반으로 검색.
+	@GetMapping("search")
+	public String search(@RequestParam("field") String field,
+			@RequestParam("word") String word, Model model,
+			@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-    //검색 작업 중 : 제목을 기반으로 검색.
-    @GetMapping("search")
-    public String search(@RequestParam("field") String field, @RequestParam("word") String word, Model model,
-                         @PageableDefault(size = 5, sort = "id",
-                                 direction = Sort.Direction.DESC) Pageable pageable) {
+		Page<Board> searchListTitle;
+		Page<Board> searchListWriter;
+		Page<Board> searchListContent;
+		Page<Board> searchListCWT;
 
+		if (field.equals("title")) {
+			searchListTitle = boardService.search(word, pageable);
+			System.out.println("제목(field=title) 조건으로  검색 작업중.");
 
-        Page<Board> searchListTitle;
-        Page<Board> searchListWriter;
-        Page<Board> searchListContent;
-        Page<Board> searchListCWT;
+			// Page<Board> lists=boardService.findAll(pageable);
 
-        if (field.equals("title")) {
-            searchListTitle = boardService.search(word, pageable);
-            System.out.println("제목(field=title) 조건으로  검색 작업중.");
+			long pageSize = pageable.getPageSize();
 
-//				Page<Board> lists=boardService.findAll(pageable);
+			// 작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
+			long rowNm = searchListTitle.getTotalElements();
 
-            long pageSize = pageable.getPageSize();
+			long totPage = (long) Math.ceil((double) rowNm / pageSize);
+			long currPage = pageable.getPageNumber();
+			System.out.println("CurrPag==============" + currPage);
 
-            //작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
-            long rowNm = searchListTitle.getTotalElements();
+			long startPage = ((currPage) / pageSize) * pageSize;
+			long endPage = startPage + pageSize;
+			if (endPage > totPage)
+				endPage = totPage;
 
-            long totPage = (long) Math.ceil((double) rowNm / pageSize);
-            long currPage = pageable.getPageNumber();
-            System.out.println("CurrPag==============" + currPage);
+			boolean prev = startPage > 0 ? true : false;
+			boolean next = endPage < totPage ? true : false;
 
-            long startPage = ((currPage) / pageSize) * pageSize;
-            long endPage = startPage + pageSize;
-            if (endPage > totPage)
-                endPage = totPage;
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage - 1);
 
-            boolean prev = startPage > 0 ? true : false;
-            boolean next = endPage < totPage ? true : false;
+			// 작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
+			model.addAttribute("field", field);
+			model.addAttribute("word", word);
 
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage - 1);
+			model.addAttribute("prev", prev);
+			model.addAttribute("next", next);
+			model.addAttribute("count", rowNm);
+			model.addAttribute("lists", searchListTitle);
+			model.addAttribute("totPage", totPage);
+			model.addAttribute("cp", currPage);
 
-            //작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
-            model.addAttribute("field", field);
-            model.addAttribute("word", word);
+		} else if (field.equals("writer")) {
 
-            model.addAttribute("prev", prev);
-            model.addAttribute("next", next);
-            model.addAttribute("count", rowNm);
-            model.addAttribute("lists", searchListTitle);
-            model.addAttribute("totPage", totPage);
-            model.addAttribute("cp", currPage);
+			// 작업중 검색 조건을 작성자로 ,
+			searchListWriter = boardService.searchWriter(word, pageable);
 
+			System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
 
-        } else if (field.equals("writer")) {
+			// Page<Board> lists=boardService.findAll(pageable);
 
-            //작업중 검색 조건을 작성자로 ,
-            searchListWriter = boardService.searchWriter(word, pageable);
+			long pageSize = pageable.getPageSize();
 
-            System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
+			// 작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
+			long rowNm = searchListWriter.getTotalElements();
 
-//				Page<Board> lists=boardService.findAll(pageable);
+			long totPage = (long) Math.ceil((double) rowNm / pageSize);
+			long currPage = pageable.getPageNumber();
+			System.out.println("CurrPag==============" + currPage);
 
-            long pageSize = pageable.getPageSize();
+			long startPage = ((currPage) / pageSize) * pageSize;
+			long endPage = startPage + pageSize;
+			if (endPage > totPage)
+				endPage = totPage;
 
-            //작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
-            long rowNm = searchListWriter.getTotalElements();
+			boolean prev = startPage > 0 ? true : false;
+			boolean next = endPage < totPage ? true : false;
 
-            long totPage = (long) Math.ceil((double) rowNm / pageSize);
-            long currPage = pageable.getPageNumber();
-            System.out.println("CurrPag==============" + currPage);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage - 1);
 
-            long startPage = ((currPage) / pageSize) * pageSize;
-            long endPage = startPage + pageSize;
-            if (endPage > totPage)
-                endPage = totPage;
+			// 작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
+			model.addAttribute("field", field);
+			model.addAttribute("word", word);
 
-            boolean prev = startPage > 0 ? true : false;
-            boolean next = endPage < totPage ? true : false;
+			model.addAttribute("prev", prev);
+			model.addAttribute("next", next);
+			model.addAttribute("count", rowNm);
+			model.addAttribute("lists", searchListWriter);
+			model.addAttribute("totPage", totPage);
+			model.addAttribute("cp", currPage);
 
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage - 1);
+		} else if (field.equals("content")) {
+			// 작업중 검색 조건을 내용으로 ,
 
-            //작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
-            model.addAttribute("field", field);
-            model.addAttribute("word", word);
+			searchListContent = boardService.searchContent(word, pageable);
 
-            model.addAttribute("prev", prev);
-            model.addAttribute("next", next);
-            model.addAttribute("count", rowNm);
-            model.addAttribute("lists", searchListWriter);
-            model.addAttribute("totPage", totPage);
-            model.addAttribute("cp", currPage);
+			System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
 
+			// Page<Board> lists=boardService.findAll(pageable);
 
-        } else if (field.equals("content")) {
-            //작업중 검색 조건을 내용으로 ,
+			long pageSize = pageable.getPageSize();
 
-            searchListContent = boardService.searchContent(word, pageable);
+			// 작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
+			long rowNm = searchListContent.getTotalElements();
 
-            System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
+			long totPage = (long) Math.ceil((double) rowNm / pageSize);
+			long currPage = pageable.getPageNumber();
+			System.out.println("CurrPag==============" + currPage);
 
-//				Page<Board> lists=boardService.findAll(pageable);
+			long startPage = ((currPage) / pageSize) * pageSize;
+			long endPage = startPage + pageSize;
+			if (endPage > totPage)
+				endPage = totPage;
 
-            long pageSize = pageable.getPageSize();
+			boolean prev = startPage > 0 ? true : false;
+			boolean next = endPage < totPage ? true : false;
 
-            //작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
-            long rowNm = searchListContent.getTotalElements();
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage - 1);
 
-            long totPage = (long) Math.ceil((double) rowNm / pageSize);
-            long currPage = pageable.getPageNumber();
-            System.out.println("CurrPag==============" + currPage);
+			// 작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
+			model.addAttribute("field", field);
+			model.addAttribute("word", word);
 
-            long startPage = ((currPage) / pageSize) * pageSize;
-            long endPage = startPage + pageSize;
-            if (endPage > totPage)
-                endPage = totPage;
+			model.addAttribute("prev", prev);
+			model.addAttribute("next", next);
+			model.addAttribute("count", rowNm);
+			model.addAttribute("lists", searchListContent);
+			model.addAttribute("totPage", totPage);
+			model.addAttribute("cp", currPage);
 
-            boolean prev = startPage > 0 ? true : false;
-            boolean next = endPage < totPage ? true : false;
+		} else if (field.equals("cwt")) {
+			// 작업중 검색 조건을 제목(title)작성자(writer) 내용(content)으로 ,
 
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage - 1);
+			searchListCWT = boardService.searchCWT(word, pageable);
 
-            //작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
-            model.addAttribute("field", field);
-            model.addAttribute("word", word);
+			System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
 
-            model.addAttribute("prev", prev);
-            model.addAttribute("next", next);
-            model.addAttribute("count", rowNm);
-            model.addAttribute("lists", searchListContent);
-            model.addAttribute("totPage", totPage);
-            model.addAttribute("cp", currPage);
+			// Page<Board> lists=boardService.findAll(pageable);
 
-        } else if (field.equals("cwt")) {
-            //작업중 검색 조건을 제목(title)작성자(writer) 내용(content)으로 ,
+			long pageSize = pageable.getPageSize();
 
-            searchListCWT = boardService.searchCWT(word, pageable);
+			// 작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
+			long rowNm = searchListCWT.getTotalElements();
 
-            System.out.println("작성자(field=writer) 조건으로  검색 작업중.");
+			long totPage = (long) Math.ceil((double) rowNm / pageSize);
+			long currPage = pageable.getPageNumber();
+			System.out.println("CurrPag==============" + currPage);
 
-//				Page<Board> lists=boardService.findAll(pageable);
+			long startPage = ((currPage) / pageSize) * pageSize;
+			long endPage = startPage + pageSize;
+			if (endPage > totPage)
+				endPage = totPage;
 
-            long pageSize = pageable.getPageSize();
+			boolean prev = startPage > 0 ? true : false;
+			boolean next = endPage < totPage ? true : false;
 
-            //작업중 검색 조건으로 제목 , 검색된 갯수를 확인하는 작업.
-            long rowNm = searchListCWT.getTotalElements();
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage - 1);
 
-            long totPage = (long) Math.ceil((double) rowNm / pageSize);
-            long currPage = pageable.getPageNumber();
-            System.out.println("CurrPag==============" + currPage);
+			// 작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
+			model.addAttribute("field", field);
+			model.addAttribute("word", word);
 
-            long startPage = ((currPage) / pageSize) * pageSize;
-            long endPage = startPage + pageSize;
-            if (endPage > totPage)
-                endPage = totPage;
+			model.addAttribute("prev", prev);
+			model.addAttribute("next", next);
+			model.addAttribute("count", rowNm);
+			model.addAttribute("lists", searchListCWT);
+			model.addAttribute("totPage", totPage);
+			model.addAttribute("cp", currPage);
 
-            boolean prev = startPage > 0 ? true : false;
-            boolean next = endPage < totPage ? true : false;
+		}
 
-            model.addAttribute("pageSize", pageSize);
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage - 1);
+		return "board/list";
 
-            //작업중 검색 제목 조건으로 , 페이징에서 번호를 클릭하면, 해당 word, field 부분이 풀리는 문제 해결.
-            model.addAttribute("field", field);
-            model.addAttribute("word", word);
+	}
 
-            model.addAttribute("prev", prev);
-            model.addAttribute("next", next);
-            model.addAttribute("count", rowNm);
-            model.addAttribute("lists", searchListCWT);
-            model.addAttribute("totPage", totPage);
-            model.addAttribute("cp", currPage);
-
-        }
-
-        return "board/list";
-
-    }
-
-
-    @GetMapping("detail")
-    public String detail(@RequestParam("bno") Long id, Model model) {
-        model.addAttribute("board", boardService.findById(id));
-        return "/board/detail";
-    }
-	
-	/*
-	@GetMapping({"detail/{id}","update/{id}"})
-	public void view(@PathVariable("id") Long id, Model model) {
+	@GetMapping("detail")
+	public String detail(@RequestParam("bno") Long id, Model model) {
 		model.addAttribute("board", boardService.findById(id));
-	}*/
+		return "/board/detail";
+	}
 
-    @GetMapping("update/{id}")
-    public String update(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("board", boardService.findById(id));
-        return "/board/update";
-    }
+	/*
+	 * @GetMapping({"detail/{id}","update/{id}"}) public void
+	 * view(@PathVariable("id") Long id, Model model) {
+	 * model.addAttribute("board", boardService.findById(id)); }
+	 */
 
-    @PostMapping("update")
-    public String update(Board board) {
-        boardService.update(board);
-        return "redirect:/board/list";
-    }
+	@GetMapping("update/{id}")
+	public String update(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("board", boardService.findById(id));
+		return "/board/update";
+	}
 
-    @GetMapping("delete/{id}")
-    public String delete(@PathVariable Long id) {
-        boardService.delete(id);
-        return "redirect:/board/list";
-    }
+	@PostMapping("update")
+	public String update(Board board) {
+		boardService.update(board);
+		return "redirect:/board/list";
+	}
+
+	@GetMapping("delete/{id}")
+	public String delete(@PathVariable Long id) {
+		boardService.delete(id);
+		return "redirect:/board/list";
+	}
 
 }
-
-
-
-
-

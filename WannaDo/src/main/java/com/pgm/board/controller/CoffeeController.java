@@ -26,7 +26,7 @@ public class CoffeeController {
 
 	@GetMapping("all")
 	public String listPage(Model model,
-			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findAll(pageable);
 
@@ -170,9 +170,9 @@ public class CoffeeController {
 	}
 
 	/*
-	 * @GetMapping("order") public String orderForm(@RequestParam("order_id") Long
+	 * @GetMapping("orderVO") public String orderVOForm(@RequestParam("orderVO_id") Long
 	 * coffee_id, Model model) { Coffee coffee = coffeeService.findById(coffee_id);
 	 * 
-	 * model.addAttribute("coffee", coffee); return "order/orderForm"; }
+	 * model.addAttribute("coffee", coffee); return "orderVO/orderVOForm"; }
 	 */
 }

@@ -259,3 +259,48 @@ code, pre {
 #amount {
   width: 5em;
 }
+
+.col > .align-self-start {
+	max-width:100px;
+}
+
+.row {
+	padding-bottom:10px;
+}
+
+.input-group {
+	padding-bottom:10px;
+}
+
+#logo-container{
+  margin: auto;
+  margin-bottom: 10px;
+  width:200px;
+  height:30px;
+  background-image:url('http://placehold.it/200x30/000000/ffffff/&text=BRAND+LOGO');
+}
+
+.style_input {
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: 1px solid #ebe6d4;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.style_item_order {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -.3px;
+    color: #212121;
+}
+.order_value {
+	text-align: right;
+	border:none;
+	
+}
