@@ -1,5 +1,7 @@
 package com.pgm.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pgm.board.model.Coffee;
 import com.pgm.board.service.CoffeeService;
@@ -59,7 +63,7 @@ public class CoffeeController {
 
 	@GetMapping("single")
 	public String listSingle(Model model,
-			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("싱글 오리진", pageable);
 
@@ -92,7 +96,7 @@ public class CoffeeController {
 
 	@GetMapping("blend")
 	public String listBlend(Model model,
-			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("블렌드", pageable);
 
@@ -125,7 +129,7 @@ public class CoffeeController {
 
 	@GetMapping("decaffeine")
 	public String listDeCaffeine(Model model,
-			@PageableDefault(size = 12, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
 
@@ -154,6 +158,39 @@ public class CoffeeController {
 		model.addAttribute("cp", currPage);
 
 		return "coffee/all";
+	}
+
+	@PostMapping("/coffee/select")
+	public String active(@RequestParam(value = "active[]") List<String> activeList, Model model,
+		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+	    activeList.forEach(i -> System.out.print(i + " "));
+	    Page<Coffee> lists = coffeeService.findByTaste("풍부한&쌉쌀", pageable);
+
+	    long pageSize = pageable.getPageSize();
+	    long rowNm = lists.getTotalElements();
+	    long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	    long currPage = pageable.getPageNumber();
+	    System.out.println("CurrPag==============" + currPage);
+
+	    long startPage = ((currPage) / pageSize) * pageSize;
+	    long endPage = startPage + pageSize;
+	    if (endPage > totPage)
+		endPage = totPage;
+
+	    boolean prev = startPage > 0 ? true : false;
+	    boolean next = endPage < totPage ? true : false;
+
+	    model.addAttribute("pageSize", pageSize);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage - 1);
+	    model.addAttribute("prev", prev);
+	    model.addAttribute("next", next);
+	    model.addAttribute("count", rowNm);
+	    model.addAttribute("lists", lists);
+	    model.addAttribute("totPage", totPage);
+	    model.addAttribute("cp", currPage);
+
+	    return "coffee/all";
 	}
 
 	/*

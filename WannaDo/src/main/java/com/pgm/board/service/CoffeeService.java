@@ -19,4 +19,6 @@ public interface CoffeeService {
 
     public Page<Coffee> findByType(String string, Pageable pageable);
 
+    public Page<Coffee> findByTaste(String string, Pageable pageable);
+
 }

@@ -55,4 +55,10 @@ public class CoffeeServiceImpl implements CoffeeService {
         return coffeeRepository.findByType(string, pageable);
     }
 
+    @Override
+    public Page<Coffee> findByTaste(String string, Pageable pageable) {
+	// TODO Auto-generated method stub
+	return coffeeRepository.findByTaste(string, pageable);
+    }
+
 }
