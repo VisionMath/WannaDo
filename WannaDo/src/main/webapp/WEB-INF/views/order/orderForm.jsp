@@ -87,7 +87,8 @@
 			<a href="#" class="btn btn-info" role="button" style="width: 80%;" id="orderConfirm">구매하기</a>
 		</div>
 	</div>
+	<iFrame onload="init();" style="visibility:hidden;display:none"></iFrame>
 </form>
 
-<script type="text/javascript" src="../js/order.js?var=2"></script>
+<script type="text/javascript" src="../js/order.js"></script>
 <%@ include file="../includes/footer.jsp"%>

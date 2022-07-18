@@ -30,7 +30,7 @@ public class CoffeeController {
 
 	@GetMapping("all")
 	public String listPage(Model model,
-		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findAll(pageable);
 
@@ -63,7 +63,7 @@ public class CoffeeController {
 
 	@GetMapping("single")
 	public String listSingle(Model model,
-		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("싱글 오리진", pageable);
 
@@ -96,7 +96,7 @@ public class CoffeeController {
 
 	@GetMapping("blend")
 	public String listBlend(Model model,
-		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("블렌드", pageable);
 
@@ -129,7 +129,7 @@ public class CoffeeController {
 
 	@GetMapping("decaffeine")
 	public String listDeCaffeine(Model model,
-		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
 		Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
 
@@ -160,37 +160,40 @@ public class CoffeeController {
 		return "coffee/all";
 	}
 
-	@PostMapping("/coffee/select")
+	@PostMapping("select")
 	public String active(@RequestParam(value = "active[]") List<String> activeList, Model model,
-		@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-	    activeList.forEach(i -> System.out.print(i + " "));
-	    Page<Coffee> lists = coffeeService.findByTaste("풍부한&쌉쌀", pageable);
+			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-	    long pageSize = pageable.getPageSize();
-	    long rowNm = lists.getTotalElements();
-	    long totPage = (long) Math.ceil((double) rowNm / pageSize);
-	    long currPage = pageable.getPageNumber();
-	    System.out.println("CurrPag==============" + currPage);
+		activeList.forEach(i -> System.out.print(i + " "));
+		System.out.println();
 
-	    long startPage = ((currPage) / pageSize) * pageSize;
-	    long endPage = startPage + pageSize;
-	    if (endPage > totPage)
-		endPage = totPage;
+		Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
 
-	    boolean prev = startPage > 0 ? true : false;
-	    boolean next = endPage < totPage ? true : false;
+		long pageSize = pageable.getPageSize();
+		long rowNm = lists.getTotalElements();
+		long totPage = (long) Math.ceil((double) rowNm / pageSize);
+		long currPage = pageable.getPageNumber();
+		System.out.println("CurrPag==============" + currPage);
 
-	    model.addAttribute("pageSize", pageSize);
-	    model.addAttribute("startPage", startPage);
-	    model.addAttribute("endPage", endPage - 1);
-	    model.addAttribute("prev", prev);
-	    model.addAttribute("next", next);
-	    model.addAttribute("count", rowNm);
-	    model.addAttribute("lists", lists);
-	    model.addAttribute("totPage", totPage);
-	    model.addAttribute("cp", currPage);
+		long startPage = ((currPage) / pageSize) * pageSize;
+		long endPage = startPage + pageSize;
+		if (endPage > totPage)
+			endPage = totPage;
 
-	    return "coffee/all";
+		boolean prev = startPage > 0 ? true : false;
+		boolean next = endPage < totPage ? true : false;
+
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage - 1);
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		model.addAttribute("count", rowNm);
+		model.addAttribute("lists", lists);
+		model.addAttribute("totPage", totPage);
+		model.addAttribute("cp", currPage);
+
+		return "coffee/all";
 	}
 
 	/*
@@ -207,8 +210,9 @@ public class CoffeeController {
 	}
 
 	/*
-	 * @GetMapping("orderVO") public String orderVOForm(@RequestParam("orderVO_id") Long
-	 * coffee_id, Model model) { Coffee coffee = coffeeService.findById(coffee_id);
+	 * @GetMapping("orderVO") public String orderVOForm(@RequestParam("orderVO_id")
+	 * Long coffee_id, Model model) { Coffee coffee =
+	 * coffeeService.findById(coffee_id);
 	 * 
 	 * model.addAttribute("coffee", coffee); return "orderVO/orderVOForm"; }
 	 */

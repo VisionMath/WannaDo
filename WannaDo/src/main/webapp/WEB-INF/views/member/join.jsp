@@ -74,7 +74,7 @@
 	</form>
 </div>
 
-<script type="text/javascript" src="../js/member.js?var=2"></script>
+<script type="text/javascript" src="../js/member.js"></script>
 
 <%@ include file="../includes/footer.jsp"%>
 

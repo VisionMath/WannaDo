@@ -13,9 +13,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6cf589222a.js" crossorigin="anonymous"></script>
 
+<script type="text/javascript" charset="utf-8">
+	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+</script>
+
 <title>WannaDo</title>
 </head>
-<body onload="init();" style="overflow: auto;">
+<body style="overflow: auto;">
 	<header>
 	<nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-center ">
 		<!-- Brand/logo -->

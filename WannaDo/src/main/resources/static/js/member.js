@@ -1,10 +1,11 @@
-/**
- * 
- */
- 
 $(document).ready(function(){
 	//alert("aaaaaaaaaaaaaaa");
 	//var exp = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
+	
+	var ctx = getContextPath();
+  function getContextPath() {
+  return sessionStorage.getItem("contextpath");
+}
 	
 	$("#btnJoin").click(function(){
 		if($("#userid").val()==""){
@@ -53,14 +54,14 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type:"post",
-			url:"/join",
+			url:ctx+"/join",
 			contentType:"application/json;charset=utf-8",
 			data:JSON.stringify(data)
 		})
 		.done(function(res){
 			if(res=="success"){
 				alert("회원가입을 축하합니다");
-				location.href="/login";
+				location.href=ctx+"/login";
 			}else if(res=="fail"){
 				alert("아이디 중복확인하세요");
 				$("#id").val("")
@@ -76,14 +77,14 @@ $(document).ready(function(){
 
 		$.ajax({
 			type : "post",
-			url : "/checkId",
+			url : ctx+"/checkId",
 			data : {
 				"userid" : $("#userid").val()
 			}
 		}).done(function(resp) {
 			if (resp == "fail") {
 				alert("중복된 ID 입니다.");
-				location.href = "/join"
+				location.href = ctx+"/join"
 			} else if (resp == "success") {
 				alert("회원 가입 가능한 ID 입니다.");
 				
@@ -97,7 +98,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			type : "post",
-			url : "/login",
+			url : ctx+"/login",
 			data : {
 				"userid" : $("#userid").val(),
 				"password" : $("#password").val()
@@ -105,10 +106,10 @@ $(document).ready(function(){
 		}).done(function(resp) {
 			if (resp == "no") {
 				alert("회원이 아닙니다. 회원가입하세요");
-				location.href = "/join"
+				location.href = ctx+"/join"
 			} else if (resp == "success") {
 				/*alert("로그인 성공");*/
-				location.href = "/index"
+				location.href = ctx+"/index"
 			} else {
 				alert("비밀번호를 확인하세요");
 			}
