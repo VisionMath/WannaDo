@@ -4,7 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ include file="../includes/header.jsp"%>
-<%-- <%@ include file="select.jsp"%> --%>
 <div class="container" style="width: 100%">
 	<div class="wrapper">
 		<div class="sidebar" style="width: 25%">

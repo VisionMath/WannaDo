@@ -1,6 +1,4 @@
 $(document).ready(function(){
-	//alert("aaaaaaaaaaaaaaa");
-	//var exp = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
 	
 	var ctx = getContextPath();
   function getContextPath() {
@@ -67,11 +65,8 @@ $(document).ready(function(){
 				$("#id").val("")
 			}
 		})
-		//$("#frm").submit();
 		
 	});
-	
-	/*아이디 중복 검사*/
 	
 		$("#btnIdCheck").click(function() {
 
@@ -108,7 +103,6 @@ $(document).ready(function(){
 				alert("회원이 아닙니다. 회원가입하세요");
 				location.href = ctx+"/join"
 			} else if (resp == "success") {
-				/*alert("로그인 성공");*/
 				location.href = ctx+"/index"
 			} else {
 				alert("비밀번호를 확인하세요");

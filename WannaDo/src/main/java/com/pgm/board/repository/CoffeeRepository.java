@@ -10,6 +10,6 @@ public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
 
     Page<Coffee> findByType(String string, Pageable pageable);
 
-    Page<Coffee> findByTaste(String string, Pageable pageable);
+    Page<Coffee> findByTasteContaining(String string, Pageable pageable);
 
 }

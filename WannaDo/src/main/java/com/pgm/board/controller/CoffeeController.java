@@ -25,195 +25,192 @@ import lombok.extern.java.Log;
 @RequestMapping("/coffee/*")
 public class CoffeeController {
 
-	@Autowired
-	private CoffeeService coffeeService;
+    @Autowired
+    private CoffeeService coffeeService;
 
-	@GetMapping("all")
-	public String listPage(Model model,
-			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    @GetMapping("all")
+    public String listPage(Model model,
+	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-		Page<Coffee> lists = coffeeService.findAll(pageable);
+	Page<Coffee> lists = coffeeService.findAll(pageable);
 
-		long pageSize = pageable.getPageSize();
-		long rowNm = coffeeService.count();
-		long totPage = (long) Math.ceil((double) rowNm / pageSize);
-		long currPage = pageable.getPageNumber();
-		System.out.println("CurrPag==============" + currPage);
+	long pageSize = pageable.getPageSize();
+	long rowNm = coffeeService.count();
+	long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	long currPage = pageable.getPageNumber();
+	System.out.println("CurrPag==============" + currPage);
 
-		long startPage = ((currPage) / pageSize) * pageSize;
-		long endPage = startPage + pageSize;
-		if (endPage > totPage)
-			endPage = totPage;
+	long startPage = ((currPage) / pageSize) * pageSize;
+	long endPage = startPage + pageSize;
+	if (endPage > totPage)
+	    endPage = totPage;
 
-		boolean prev = startPage > 0 ? true : false;
-		boolean next = endPage < totPage ? true : false;
+	boolean prev = startPage > 0 ? true : false;
+	boolean next = endPage < totPage ? true : false;
 
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage - 1);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-		model.addAttribute("count", rowNm);
-		model.addAttribute("lists", lists);
-		model.addAttribute("totPage", totPage);
-		model.addAttribute("cp", currPage);
+	model.addAttribute("pageSize", pageSize);
+	model.addAttribute("startPage", startPage);
+	model.addAttribute("endPage", endPage - 1);
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	model.addAttribute("count", rowNm);
+	model.addAttribute("lists", lists);
+	model.addAttribute("totPage", totPage);
+	model.addAttribute("cp", currPage);
 
-		return "coffee/all";
-	}
+	return "coffee/all";
+    }
 
-	@GetMapping("single")
-	public String listSingle(Model model,
-			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    @GetMapping("single")
+    public String listSingle(Model model,
+	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-		Page<Coffee> lists = coffeeService.findByType("싱글 오리진", pageable);
+	Page<Coffee> lists = coffeeService.findByType("싱글 오리진", pageable);
 
-		long pageSize = pageable.getPageSize();
-		long rowNm = lists.getTotalElements();
-		long totPage = (long) Math.ceil((double) rowNm / pageSize);
-		long currPage = pageable.getPageNumber();
-		System.out.println("CurrPag==============" + currPage);
+	long pageSize = pageable.getPageSize();
+	long rowNm = lists.getTotalElements();
+	long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	long currPage = pageable.getPageNumber();
+	System.out.println("CurrPag==============" + currPage);
 
-		long startPage = ((currPage) / pageSize) * pageSize;
-		long endPage = startPage + pageSize;
-		if (endPage > totPage)
-			endPage = totPage;
+	long startPage = ((currPage) / pageSize) * pageSize;
+	long endPage = startPage + pageSize;
+	if (endPage > totPage)
+	    endPage = totPage;
 
-		boolean prev = startPage > 0 ? true : false;
-		boolean next = endPage < totPage ? true : false;
+	boolean prev = startPage > 0 ? true : false;
+	boolean next = endPage < totPage ? true : false;
 
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage - 1);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-		model.addAttribute("count", rowNm);
-		model.addAttribute("lists", lists);
-		model.addAttribute("totPage", totPage);
-		model.addAttribute("cp", currPage);
+	model.addAttribute("pageSize", pageSize);
+	model.addAttribute("startPage", startPage);
+	model.addAttribute("endPage", endPage - 1);
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	model.addAttribute("count", rowNm);
+	model.addAttribute("lists", lists);
+	model.addAttribute("totPage", totPage);
+	model.addAttribute("cp", currPage);
 
-		return "coffee/all";
-	}
+	return "coffee/all";
+    }
 
-	@GetMapping("blend")
-	public String listBlend(Model model,
-			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    @GetMapping("blend")
+    public String listBlend(Model model,
+	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-		Page<Coffee> lists = coffeeService.findByType("블렌드", pageable);
+	Page<Coffee> lists = coffeeService.findByType("블렌드", pageable);
 
-		long pageSize = pageable.getPageSize();
-		long rowNm = lists.getTotalElements();
-		long totPage = (long) Math.ceil((double) rowNm / pageSize);
-		long currPage = pageable.getPageNumber();
-		System.out.println("CurrPag==============" + currPage);
+	long pageSize = pageable.getPageSize();
+	long rowNm = lists.getTotalElements();
+	long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	long currPage = pageable.getPageNumber();
+	System.out.println("CurrPag==============" + currPage);
 
-		long startPage = ((currPage) / pageSize) * pageSize;
-		long endPage = startPage + pageSize;
-		if (endPage > totPage)
-			endPage = totPage;
+	long startPage = ((currPage) / pageSize) * pageSize;
+	long endPage = startPage + pageSize;
+	if (endPage > totPage)
+	    endPage = totPage;
 
-		boolean prev = startPage > 0 ? true : false;
-		boolean next = endPage < totPage ? true : false;
+	boolean prev = startPage > 0 ? true : false;
+	boolean next = endPage < totPage ? true : false;
 
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage - 1);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-		model.addAttribute("count", rowNm);
-		model.addAttribute("lists", lists);
-		model.addAttribute("totPage", totPage);
-		model.addAttribute("cp", currPage);
+	model.addAttribute("pageSize", pageSize);
+	model.addAttribute("startPage", startPage);
+	model.addAttribute("endPage", endPage - 1);
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	model.addAttribute("count", rowNm);
+	model.addAttribute("lists", lists);
+	model.addAttribute("totPage", totPage);
+	model.addAttribute("cp", currPage);
 
-		return "coffee/all";
-	}
+	return "coffee/all";
+    }
 
-	@GetMapping("decaffeine")
-	public String listDeCaffeine(Model model,
-			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    @GetMapping("decaffeine")
+    public String listDeCaffeine(Model model,
+	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-		Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
+	Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
 
-		long pageSize = pageable.getPageSize();
-		long rowNm = lists.getTotalElements();
-		long totPage = (long) Math.ceil((double) rowNm / pageSize);
-		long currPage = pageable.getPageNumber();
-		System.out.println("CurrPag==============" + currPage);
+	long pageSize = pageable.getPageSize();
+	long rowNm = lists.getTotalElements();
+	long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	long currPage = pageable.getPageNumber();
+	System.out.println("CurrPag==============" + currPage);
 
-		long startPage = ((currPage) / pageSize) * pageSize;
-		long endPage = startPage + pageSize;
-		if (endPage > totPage)
-			endPage = totPage;
+	long startPage = ((currPage) / pageSize) * pageSize;
+	long endPage = startPage + pageSize;
+	if (endPage > totPage)
+	    endPage = totPage;
 
-		boolean prev = startPage > 0 ? true : false;
-		boolean next = endPage < totPage ? true : false;
+	boolean prev = startPage > 0 ? true : false;
+	boolean next = endPage < totPage ? true : false;
 
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage - 1);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-		model.addAttribute("count", rowNm);
-		model.addAttribute("lists", lists);
-		model.addAttribute("totPage", totPage);
-		model.addAttribute("cp", currPage);
+	model.addAttribute("pageSize", pageSize);
+	model.addAttribute("startPage", startPage);
+	model.addAttribute("endPage", endPage - 1);
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	model.addAttribute("count", rowNm);
+	model.addAttribute("lists", lists);
+	model.addAttribute("totPage", totPage);
+	model.addAttribute("cp", currPage);
 
-		return "coffee/all";
-	}
+	return "coffee/all";
+    }
 
-	@PostMapping("select")
-	public String active(@RequestParam(value = "active[]") List<String> activeList, Model model,
-			@PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+    @PostMapping("select")
+    public String active(@RequestParam(value = "active[]") List<String> activeList, Model model,
+	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-		activeList.forEach(i -> System.out.print(i + " "));
-		System.out.println();
+	Page<Coffee> lists = coffeeService.findByTaste(activeList.get(0), pageable);
 
-		Page<Coffee> lists = coffeeService.findByType("디카페인", pageable);
+	long pageSize = pageable.getPageSize();
+	long rowNm = lists.getTotalElements();
+	long totPage = (long) Math.ceil((double) rowNm / pageSize);
+	long currPage = pageable.getPageNumber();
+	System.out.println("CurrPag==============" + currPage);
 
-		long pageSize = pageable.getPageSize();
-		long rowNm = lists.getTotalElements();
-		long totPage = (long) Math.ceil((double) rowNm / pageSize);
-		long currPage = pageable.getPageNumber();
-		System.out.println("CurrPag==============" + currPage);
+	long startPage = ((currPage) / pageSize) * pageSize;
+	long endPage = startPage + pageSize;
+	if (endPage > totPage)
+	    endPage = totPage;
 
-		long startPage = ((currPage) / pageSize) * pageSize;
-		long endPage = startPage + pageSize;
-		if (endPage > totPage)
-			endPage = totPage;
+	boolean prev = startPage > 0 ? true : false;
+	boolean next = endPage < totPage ? true : false;
 
-		boolean prev = startPage > 0 ? true : false;
-		boolean next = endPage < totPage ? true : false;
+	model.addAttribute("pageSize", pageSize);
+	model.addAttribute("startPage", startPage);
+	model.addAttribute("endPage", endPage - 1);
+	model.addAttribute("prev", prev);
+	model.addAttribute("next", next);
+	model.addAttribute("count", rowNm);
+	model.addAttribute("lists", lists);
+	model.addAttribute("totPage", totPage);
+	model.addAttribute("cp", currPage);
 
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage - 1);
-		model.addAttribute("prev", prev);
-		model.addAttribute("next", next);
-		model.addAttribute("count", rowNm);
-		model.addAttribute("lists", lists);
-		model.addAttribute("totPage", totPage);
-		model.addAttribute("cp", currPage);
+	return "coffee/select";
+    }
 
-		return "coffee/all";
-	}
+    /*
+     * @GetMapping("detail") public String detail(@RequestParam("bno") Long id,
+     * Model model) { model.addAttribute("coffee", coffeeService.findById(id));
+     * return "/coffee/detail"; }
+     */
 
-	/*
-	 * @GetMapping("detail") public String detail(@RequestParam("bno") Long id,
-	 * Model model) { model.addAttribute("coffee", coffeeService.findById(id));
-	 * return "/coffee/detail"; }
-	 */
+    @GetMapping({ "{id}" })
+    public String view(@PathVariable("id") Long id, Model model) {
+	System.out.println(id);
+	model.addAttribute("coffee", coffeeService.findById(id));
+	return "coffee/detail";
+    }
 
-	@GetMapping({ "{id}" })
-	public String view(@PathVariable("id") Long id, Model model) {
-		System.out.println(id);
-		model.addAttribute("coffee", coffeeService.findById(id));
-		return "coffee/detail";
-	}
-
-	/*
-	 * @GetMapping("orderVO") public String orderVOForm(@RequestParam("orderVO_id")
-	 * Long coffee_id, Model model) { Coffee coffee =
-	 * coffeeService.findById(coffee_id);
-	 * 
-	 * model.addAttribute("coffee", coffee); return "orderVO/orderVOForm"; }
-	 */
+    /*
+     * @GetMapping("orderVO") public String orderVOForm(@RequestParam("orderVO_id")
+     * Long coffee_id, Model model) { Coffee coffee =
+     * coffeeService.findById(coffee_id);
+     * 
+     * model.addAttribute("coffee", coffee); return "orderVO/orderVOForm"; }
+     */
 }

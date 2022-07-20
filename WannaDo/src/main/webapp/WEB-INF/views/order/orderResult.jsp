@@ -26,7 +26,7 @@
 				<tr>
 					<td><img src="${order.coffeeImage}" width=100px></td>
 					<td>${order.taste}</td>
-					<td>${order.blend}</td>
+					<td width="200px">${order.blend}</td>
 					<td>${order.amount}</td>
 					<td>${order.price}</td>
 					<td>${order.fee}</td>

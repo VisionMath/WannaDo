@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	$('.style_select').click(function () {
+		$('.style_select').removeClass('style_active');
 		$(this).toggleClass('style_active');
 		var active = [];
 		$('.style_active').each(function (i) {
@@ -13,17 +14,11 @@ $(document).ready(function () {
 				"active": active,
 			},
 			success: function (data) {
-				$('.main').innerHTML='';
+				console.log(data);
 			}
 		}).done(function (res) {
-			$('.main').innerHTML='';
+			$('.main').empty();
 			$('.main').append(res);
-			/*console.log(res);
-			if (res == "index1234") {
-				console.log("리턴값 여기로");
-			} else {
-				console.log("전송 실패");
-			}*/
 		});
 	})
 });

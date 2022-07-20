@@ -90,5 +90,46 @@
 	<iFrame onload="init();" style="visibility:hidden;display:none"></iFrame>
 </form>
 
-<script type="text/javascript" src="../js/order.js"></script>
+<!-- <script type="text/javascript" src="../js/order.js"></script> -->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var regex = /[^0-9]/g;
+	
+	$("#orderConfirm").click(function(){
+		if($("#address").val()==""){
+			alert("배송지를 입력하세요");
+			$("#address").focus();
+			return false;
+		}
+		
+		var data={
+			"amount":$("#amount").val(),
+			"price":parseInt($("#price").val().replace(regex, "")),
+			"fee":parseInt($("#fee").val().replace(regex, "")),
+			"total":parseInt($("#total").val().replace(regex, "")),
+			"userid":$("#userid").val(),
+			"address":$("#address").val(),
+			"status":"배송전",
+			"coffeeid":$("#coffeeid").val(),
+		}
+		
+		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/orderConfirm",
+			contentType:"application/json;charset=utf-8",
+			data:JSON.stringify(data)
+		})
+		.done(function(res){
+			if(res=="success"){
+				alert("주문이 처리되었습니다.");
+				location.href="${pageContext.request.contextPath}/orderResult";
+			}else if(res=="fail"){
+				alert("주문이 실패했습니다.");
+				$("#id").val("")
+			}
+		})
+	});
+});
+</script>
 <%@ include file="../includes/footer.jsp"%>

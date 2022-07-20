@@ -1,10 +1,5 @@
-/**
- * 
- */
- 
 $(document).ready(function(){
-	//alert("aaaaaaaaaaaaaaa");
-	//var exp = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
+	
 	var regex = /[^0-9]/g;
 	
 	$("#orderConfirm").click(function(){

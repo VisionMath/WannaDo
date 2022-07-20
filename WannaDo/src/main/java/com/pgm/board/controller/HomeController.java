@@ -71,6 +71,12 @@ public class HomeController {
 
 	}
 
+	@GetMapping("findmine")
+	public String findmine(HttpSession session) {
+	    session.getAttribute("sUser");
+	    return "member/findmine";
+	}
+
 	@PostMapping("login")
 	@ResponseBody
 	public String loginPro(String userid, String password,

@@ -33,13 +33,18 @@
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/coffee/single">Single Origin</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/coffee/blend">Blend</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/coffee/decaffeine">DeCaffeine</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/roastery/all"> Roastery</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/roastery/all">Roastery</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/findmine">FindMINE</a></li>
 		</ul>
 		<ul class="navbar-nav">
 		<c:choose>
 			<c:when test="${empty sessionScope.sUser }">
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/login">LOGIN</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/join">JOIN</a></li>
+			</c:when>
+			<c:when test="${sUser.role=='ADMIN'}">
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/shipping">배송관리</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/product">상품관리</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/logout">LOGOUT</a></li>
