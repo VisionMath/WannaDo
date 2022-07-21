@@ -14,7 +14,7 @@
 		<ul class="style_links">
 			<li><a class="style_link" href="https://map.naver.com/v5/search/${roastery.location }"
 					target="_blank" rel="noreferrer" style="text-decoration: none;">
-					<object data="/images/svg/location.svg"></object>
+					<img src="${pageContext.request.contextPath}/images/svg/location.svg">
 					<span class="style_address">
 						${roastery.location }&nbsp;
 						<object data="/images/svg/link.svg"></object>
@@ -22,18 +22,18 @@
 				</a></li>
 			<li><a class="style_link" href="https://www.instagram.com/${roastery.instagram }"
 					target="_blank" rel="noreferrer" style="text-decoration: none;">
-					<object data="/images/svg/instagram.svg"></object>
+					<img src="${pageContext.request.contextPath}/images/svg/instagram.svg">
 					<span class="style_address">
 						${roastery.instagram }&nbsp;
-						<object data="/images/svg/link.svg"></object>
+						<img src="${pageContext.request.contextPath}/images/svg/link.svg">
 					</span>
 				</a></li>
 			<li><a class="style_link" href="https://${roastery.website }/" target="_blank"
 					rel="noreferrer" style="text-decoration: none;">
-					<object data="/images/svg/website.svg"></object>
+					<img src="${pageContext.request.contextPath}/images/svg/website.svg">
 					<span class="style_address">
 						${roastery.website }&nbsp;
-						<object data="/images/svg/link.svg"></object>
+						<img src="${pageContext.request.contextPath}/images/svg/link.svg">
 					</span>
 				</a></li>
 		</ul>

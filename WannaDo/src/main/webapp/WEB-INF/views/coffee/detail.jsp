@@ -24,12 +24,12 @@
 
 		$('#ext')
 				.append(
-						"<li class='style_float'><div class='style_wrapper'><object data='/images/svg/"+svgArray[bestPos]+"' width='80' height='80'></object><span class='style_label'>"+split[0]+"</span></div></li>");
+						"<li class='style_float'><div class='style_wrapper'><img src='${pageContext.request.contextPath}/images/svg/"+svgArray[bestPos]+"' width='80' height='80'><span class='style_label'>"+split[0]+"</span></div></li>");
 		for (var i=0; i<extArray.length;i++) {
 			if (split[1].includes(extArray[i])) {
 				$('#ext')
 				.append(
-						"<li class='style_float'><div class='style_wrapper'><object data='/images/svg/"+svgArray[i]+"' width='80' height='80'></object><span class='style_label'>"+extArray[i]+"</span></div></li>");				
+						"<li class='style_float'><div class='style_wrapper'><img src='${pageContext.request.contextPath}/images/svg/"+svgArray[i]+"' width='80' height='80'><span class='style_label'>"+extArray[i]+"</span></div></li>");				
 			}
 		}
 		
@@ -37,7 +37,7 @@
 			if (drinkbest.includes(drinkArray[i])) {
 				$('#drink')
 				.append(
-						"<li class='style_float'><div class='style_wrapper'><object data='/images/svg/"+drinkSVG[i]+"' width='80' height='80'></object><span class='style_label'>"+drinkArray[i]+"</span></div></li>");				
+						"<li class='style_float'><div class='style_wrapper'><img src='${pageContext.request.contextPath}/images/svg/"+drinkSVG[i]+"' width='80' height='80'><span class='style_label'>"+drinkArray[i]+"</span></div></li>");				
 			}
 		}
 	}
@@ -59,19 +59,18 @@
 			<div>
 				<ul class="list-group">
 					<li class="list-group-item"><span>
-							<object data="/images/svg/shipping.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/shipping.svg">
 						</span> &nbsp;${coffee.shipping }&nbsp;3일 내 볶은 원두만 배송합니다.</li>
 					<c:set var="acidity" value='${coffee.acidity}' />
 					<li class="list-group-item"><span>
-							<object data="/images/svg/acidity.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/acidity.svg">
 						</span>&nbsp;${fn:replace(acidity, '?', ' ')}</li>
 					<li class="list-group-item"><span>
-							<object data="/images/svg/blend.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/blend.svg">
 						</span>&nbsp;${coffee.blend }</li>
 					<li class="list-group-item"><span>
-							<object data="/images/svg/roasting.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/roasting.svg">
 						</span>&nbsp;${coffee.roasting }</li>
-
 				</ul>
 			</div>
 			<br> <br>
@@ -91,28 +90,28 @@
 				<ul class="style_links">
 					<li><a class="style_link" href="https://map.naver.com/v5/search/${location }"
 							target="_blank" rel="noreferrer" style="text-decoration: none;">
-							<object data="/images/svg/location.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/location.svg">
 							<span class="style_address">
 								${location }&nbsp;
-								<object data="/images/svg/link.svg"></object>
+								<img src="${pageContext.request.contextPath}/images/svg/link.svg">
 							</span>
 						</a></li>
 					<li><a class="style_link" href="https://www.instagram.com/${instagram }" target="_blank"
 							rel="noreferrer" style="text-decoration: none;">
-							<object data="/images/svg/instagram.svg"></object>
+							<img src="${pageContext.request.contextPath}/images/svg/instagram.svg">
 							<span class="style_address">
 								${instagram }&nbsp;
-								<object data="/images/svg/link.svg"></object>
+								<img src="${pageContext.request.contextPath}/images/svg/link.svg">
 							</span>
 						</a></li>
 					<c:if test="${fn:contains(info, 'Website')}">
 						<c:set var='website' value="${fn:substringAfter(info, 'Website')}" />
 						<li><a class="style_link" href="https://${website }/" target="_blank" rel="noreferrer"
 								style="text-decoration: none;">
-								<object data="/images/svg/website.svg"></object>
+								<img src="${pageContext.request.contextPath}/images/svg/website.svg">
 								<span class="style_address">
 									${website }&nbsp;
-									<object data="/images/svg/link.svg"></object>
+									<img src="${pageContext.request.contextPath}/images/svg/link.svg">
 								</span>
 							</a></li>
 					</c:if>

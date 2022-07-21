@@ -12,7 +12,7 @@
 		for (var i = 0; i < extArray.length; i++) {
 			$('.find_main')
 					.append(
-							"<div class='find_wrapper'><img src='/images/svg/"+svgArray[i]+"' width='80' height='80'><span class='style_label'>"
+							"<div class='find_wrapper'><img src='${pageContext.request.contextPath}/images/svg/"+svgArray[i]+"' width='80' height='80'><span class='style_label'>"
 									+ extArray[i] + "</span></div>");
 		}
 	}
@@ -27,7 +27,7 @@
 			for (var i=0; i<drinkArray.length;i++) {
 					$('.find_main')
 					.append(
-							"<div class='find_wrapper'><img src='/images/svg/"+drinkSVG[i]+"' width='80' height='80'><span class='style_label'>"+drinkArray[i]+"</span></div>");				
+							"<div class='find_wrapper'><img src='${pageContext.request.contextPath}/images/svg/"+drinkSVG[i]+"' width='80' height='80'><span class='style_label'>"+drinkArray[i]+"</span></div>");				
 			}
 		})	
 	})
