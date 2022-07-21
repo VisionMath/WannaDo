@@ -1,9 +1,11 @@
 package com.pgm.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,6 +26,9 @@ import lombok.extern.java.Log;
 @Controller
 @RequestMapping("/coffee/*")
 public class CoffeeController {
+
+    List<Coffee> coffeeList = new ArrayList<>();
+    List<String> selectList = new ArrayList<>();
 
     @Autowired
     private CoffeeService coffeeService;
@@ -161,10 +166,38 @@ public class CoffeeController {
     }
 
     @PostMapping("select")
-    public String active(@RequestParam(value = "active[]") List<String> activeList, Model model,
+    public String active(@RequestParam(value = "active") String active, Model model,
 	    @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 
-	Page<Coffee> lists = coffeeService.findByTaste(activeList.get(0), pageable);
+	if (selectList.contains(active)) {
+	    selectList.remove(active);
+
+	    for (int i = (coffeeList.size() - 1); i > -1; i--) {
+		boolean inval = false;
+		Coffee coffee = coffeeList.get(i);
+		if (coffee.getTaste().contains(active)) {
+		    for (String s : selectList) {
+			if (coffee.getTaste().contains(s)) {
+			    inval = true;
+			    break;
+			}
+		    }
+		    if (!inval) {
+			coffeeList.remove(coffee);
+		    }
+		}
+	    }
+	} else {
+	    selectList.add(active);
+	    List<Coffee> getList = coffeeService.findByTaste(active);
+	    for (Coffee coffee : getList) {
+		if (!coffeeList.contains(coffee)) {
+		    coffeeList.add(coffee);
+		}
+	    }
+	}
+
+	Page<Coffee> lists = new PageImpl<>(coffeeList, pageable, coffeeList.size());
 
 	long pageSize = pageable.getPageSize();
 	long rowNm = lists.getTotalElements();

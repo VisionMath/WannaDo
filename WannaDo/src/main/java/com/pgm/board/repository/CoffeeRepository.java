@@ -1,5 +1,7 @@
 package com.pgm.board.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +12,6 @@ public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
 
     Page<Coffee> findByType(String string, Pageable pageable);
 
-    Page<Coffee> findByTasteContaining(String string, Pageable pageable);
+    List<Coffee> findByTasteContaining(String string);
 
 }
