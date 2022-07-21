@@ -1,11 +1,8 @@
 $(document).ready(function () {
 	$('.style_select').click(function () {
-		$('.style_select').removeClass('style_active');
 		$(this).toggleClass('style_active');
-		var active = [];
-		$('.style_active').each(function (i) {
-			active.push($(this).text());
-		})
+		var active = "";
+		active = $(this).text();
 		$.ajax({
 			url: 'select',
 			type: 'post',
